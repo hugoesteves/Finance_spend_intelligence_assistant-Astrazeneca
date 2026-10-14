@@ -49,7 +49,7 @@ scripted fake. Without a key the data quality page still works and questions ret
   (a cited clause that was never retrieved, or a query that was never run, gets a warning). Caveats such as the FX source and the quarantined rows are added by code,
   not by the model. Not yet checked: that each number in the answer always appears in a query result.
 
-7. **Not built for the sake of time or because if was not needed for this specific challenge:** login, chat memory, streaming, a stored log of questions, vector database, Docker,
+7. **Not built for the sake of time or because if was not needed for the designed solution:** login, chat memory, streaming, a stored log of questions, vector database, Docker,
   filters in the UI. Furthermore, it was not possible to do with the data provided: approver authority (§3, no approver roles), segregation of
   duties (§7, no requester), PO validity (no PO master data), late payment (no payment dates). A real ECB rates was not done as well (a flat
   table is used).
