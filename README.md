@@ -70,8 +70,9 @@ scripted fake. Without a key the data quality page still works and questions ret
 
 ### Path to production (200 finance users, real data)
 
-- **Access control and security:** single sign-on; row-level access by company and cost center or team; SQL tool uses 
-  read-only database with user limited to approved views. Security checks in the question, treating it as untrusted input.
+- **Access control and security:** single sign-on (SSO); implement Role-Based Access Control (RBAC) and database-level RLS so users only view invoices belonging to
+  their authorized cost centers or departments. For prompt protection, user queries should be treated as untrusted input to prevent prompt injection or attempts to
+  manipulate the read-only database authorizers.
 
 - **Auditability and lineage (§8.2):** versioned policy documents; every question, its SQL, the clauses used and the answer stored in an append-only log with user id,
   pipeline run, policy version and model version, kept for 10 years (§8.1). Today the evidence is returned with
