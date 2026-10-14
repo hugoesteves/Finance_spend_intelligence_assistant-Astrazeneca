@@ -1,0 +1,190 @@
+[
+  {
+    "id": "E01",
+    "question": "What is our total 2025 spend with vendors that are not ACTIVE?",
+    "must_contain": [
+      [
+        "1497797.48"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§4.1"
+    ],
+    "allow_warnings": false,
+    "notes": "INACTIVE 1,084,083.07 + ON_HOLD 413,714.41, 29 invoices"
+  },
+  {
+    "id": "E02",
+    "question": "Which invoices over EUR 1,000 are missing a PO, and what does the policy say we should do about them?",
+    "must_contain": [
+      [
+        "21"
+      ],
+      [
+        "cost center owner",
+        "cost-center owner"
+      ],
+      [
+        "quarterly"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§2.1",
+      "§2.2"
+    ],
+    "allow_warnings": false,
+    "notes": "21 invoices; flag to cost center owner, report quarterly"
+  },
+  {
+    "id": "E03",
+    "question": "Who is allowed to approve an invoice of EUR 60,000?",
+    "must_contain": [
+      [
+        "finance director"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§3"
+    ],
+    "allow_warnings": false,
+    "notes": "50,000.01-250,000 band"
+  },
+  {
+    "id": "E04",
+    "question": "Who has to approve an invoice above EUR 250,000?",
+    "must_contain": [
+      [
+        "cfo"
+      ],
+      [
+        "procurement excellence"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§3"
+    ],
+    "allow_warnings": false,
+    "notes": ""
+  },
+  {
+    "id": "E05",
+    "question": "How many invoices have no approver, and can they be paid?",
+    "must_contain": [
+      [
+        "25"
+      ],
+      [
+        "held",
+        "hold"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§3.1"
+    ],
+    "allow_warnings": false,
+    "notes": "25 invoices, must be held"
+  },
+  {
+    "id": "E06",
+    "question": "How much have we been invoiced by vendors with INACTIVE status, and what must happen to those invoices?",
+    "must_contain": [
+      [
+        "1084083.07"
+      ],
+      [
+        "procurement excellence"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§4.1"
+    ],
+    "allow_warnings": false,
+    "notes": "17 invoices, escalate"
+  },
+  {
+    "id": "E07",
+    "question": "How many invoices come from ON_HOLD vendors and what is their total in EUR?",
+    "must_contain": [
+      [
+        "12"
+      ],
+      [
+        "413714.41"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§4.1"
+    ],
+    "allow_warnings": false,
+    "notes": ""
+  },
+  {
+    "id": "E08",
+    "question": "What are the standard payment terms?",
+    "must_contain": [
+      [
+        "60 days",
+        "60-day"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [
+      "§5.2"
+    ],
+    "allow_warnings": false,
+    "notes": ""
+  },
+  {
+    "id": "E09",
+    "question": "How many rows were quarantined by the pipeline and why?",
+    "must_contain": [
+      [
+        "5"
+      ],
+      [
+        "duplicate"
+      ]
+    ],
+    "must_contain_any": [],
+    "must_not_contain": [],
+    "must_cite": [],
+    "allow_warnings": false,
+    "notes": "5 DUPLICATE_ROW in invoices_quarantine"
+  },
+  {
+    "id": "E10",
+    "question": "Which invoices were paid late in 2025, and who is the requester of the purchase for invoice approvals by j.smith?",
+    "must_contain": [],
+    "must_contain_any": [
+      "cannot",
+      "can't",
+      "not available",
+      "does not contain",
+      "no data",
+      "not in the data",
+      "not included",
+      "unable"
+    ],
+    "must_not_contain": [
+      "paid late:"
+    ],
+    "must_cite": [],
+    "allow_warnings": true,
+    "notes": "Guardrail: data has no payment dates, requesters or approver roles; the assistant must say so, not guess"
+  }
+]

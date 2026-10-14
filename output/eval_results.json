@@ -1,0 +1,86 @@
+{
+  "passed": 10,
+  "total": 10,
+  "cases": [
+    {
+      "id": "E01",
+      "question": "What is our total 2025 spend with vendors that are not ACTIVE?",
+      "passed": true,
+      "failures": [],
+      "answer": "2025 spend with vendors that are not ACTIVE comes to **EUR 1,497,797.48**. It covers 29 invoices from 2 vendors, and none of them are credit notes [Q1].\n\n| Vendor status | Vendors | Invoices | Spend (EUR) |\n|---|---|---|---|\n| INACTIVE | 1 | 17 | 1,084,083.07 |\n| ON_HOLD | 1 | 12 | 413,714.41 |\n\nThe policy says payments may only be made to vendors with ACTIVE status. Invoices from ON_HOLD or INACTIVE vendors must be escalated to Procurement Excellence before processing [§4.1].\n\nThis data doesn't show whether these invoices were actually paid or escalated. It has no payment dates and no Exception Register. To find out, the analyst could check payment records and the Exception Register.",
+      "seconds": 6.1
+    },
+    {
+      "id": "E02",
+      "question": "Which invoices over EUR 1,000 are missing a PO, and what does the policy say we should do about them?",
+      "passed": true,
+      "failures": [],
+      "answer": "21 invoices over EUR 1,000 have no PO. They total EUR 1,132,663.88 [Q1].\n\n**What the policy says**\n- Purchases of EUR 1,000 or above require an approved PO issued before the supplier starts work or ships goods [§2.1].\n- An invoice above the EUR 1,000 threshold without a valid PO reference (\"maverick spend\") must be flagged to the Cost Center owner. It must also be reported quarterly to the Finance Controls Committee [§2.2].\n- Recurring services such as cloud hosting or facilities may run under a blanket PO, renewed annually [§2.3]. Quanta Cloud Services and Stellar Facilities Mgmt appear in the list, so check whether a blanket PO covers them.\n- Emergency purchases (patient safety, business continuity) may skip the PO if they get retrospective approval within 5 business days, documented in the Exception Register [§9.1]. I can't see that register, so I can't tell whether any of these invoices were covered.\n\n**Largest five** (full list of 21 is in [Q2])\n\n| Invoice | Vendor | Date | Amount | Pipeline action |\n|---|---|---|---|---|\n| INV-20094 | ClinSupply Iberia S.L. | 2025-04-08 | EUR 110,149.99 | REVIEW |\n| INV-20113 | Helix Consulting AG | 2025-09-15 | EUR 94,655.34 | REVIEW |\n| INV-20118 | Crown Travel Partners | 2025-04-22 | EUR 93,680.37 | ESCALATE |\n| INV-20067 | PharmaPrint Studios | 2025-09-10 | EUR 92,908.70 | ESCALATE |\n| INV-20039 | MedPack Logistics BV | 2025-03-02 | EUR 90,222.18 | REVIEW |\n\nThree of the 21 also have no approver, and the pipeline marks them HOLD: INV-20042, INV-20123 and INV-20128 [Q2].\n\n**Caveats**\n- My query used \"over EUR 1,000\". §2.1 says \"EUR 1,000 or above\", so an invoice of exactly EUR 1,000.00 would be missed. I can re-run it with ≥ if you want.\n- The data can't show who the Cost Center owners are. It also can't show whether the flagging or the quarterly reporting has happened. Those steps need to be confirmed with the cost center owners and the Finance Controls Committee.",
+      "seconds": 9.3
+    },
+    {
+      "id": "E03",
+      "question": "Who is allowed to approve an invoice of EUR 60,000?",
+      "passed": true,
+      "failures": [],
+      "answer": "An invoice of EUR 60,000 falls in the EUR 50,000.01 – 250,000 band. That band requires the **Finance Director** to approve [§3].\n\nTwo related rules:\n- Approval must be evidenced by the `approved_by` field. An invoice with no approver record must be held and may not be paid [§3.1].\n- Self-approval is prohibited at every threshold [§7.2].\n\nI can't tell you who the current Finance Director is, because this data doesn't hold approver names or roles.",
+      "seconds": 3.9
+    },
+    {
+      "id": "E04",
+      "question": "Who has to approve an invoice above EUR 250,000?",
+      "passed": true,
+      "failures": [],
+      "answer": "An invoice above EUR 250,000 needs approval from the **CFO**, plus a **Procurement Excellence review** [§3].\n\nTwo related rules also apply:\n- Approval is evidenced by the `approved_by` field. An invoice with no approver record must be held and may not be paid [§3.1].\n- Self-approval is prohibited at every threshold [§7.2].\n\nI didn't query any invoices, so this doesn't tell you which invoices are above that threshold. I can pull that list if you want it.",
+      "seconds": 3.3
+    },
+    {
+      "id": "E05",
+      "question": "How many invoices have no approver, and can they be paid?",
+      "passed": true,
+      "failures": [],
+      "answer": "**25 invoices have no approver, and they can't be paid.** Together they total EUR 1,060,280.95 [Q1]. The pipeline flags all 25 as HOLD under §3.1 [Q1][Q2].\n\nThe policy says invoices without an approver record \"must be held and may not be paid\" [§3.1]. Approval is evidenced by the `approved_by` field [§3.1]. These invoices should stay on hold until an approver is recorded.\n\nThis count comes from the cleaned invoice table. It doesn't include any rows in the quarantine table. This data also can't show whether the invoices were approved outside the system or whether they have since been paid. Procurement Controls could check that with the approvers or with AP.",
+      "seconds": 7.0
+    },
+    {
+      "id": "E06",
+      "question": "How much have we been invoiced by vendors with INACTIVE status, and what must happen to those invoices?",
+      "passed": true,
+      "failures": [],
+      "answer": "We have been invoiced EUR 1,084,083.07 by INACTIVE vendors. That is 17 invoices from a single vendor, with no credit notes [Q1].\n\n**What must happen:** Payments may only be made to vendors with ACTIVE status. Invoices from INACTIVE vendors must be escalated to Procurement Excellence before processing [§4.1]. The pipeline flagged all 17 invoices as VENDOR_NOT_ACTIVE with action ESCALATE [Q2].\n\n**Other flags on the same invoices** [Q2]:\n- 3 are also flagged MISSING_APPROVER, with action HOLD (pipeline reference §3.1).\n- 2 are also flagged MISSING_PO, with action REVIEW (pipeline reference §2.1, §2.2).\n\nI did not search for the §3.1, §2.1 and §2.2 clauses, so I can't state what they require. I can look them up if you want.\n\nThis data can't show whether the escalations have actually happened. Check that with Procurement Excellence.",
+      "seconds": 6.1
+    },
+    {
+      "id": "E07",
+      "question": "How many invoices come from ON_HOLD vendors and what is their total in EUR?",
+      "passed": true,
+      "failures": [],
+      "answer": "There are 12 invoices from ON_HOLD vendors, and they total EUR 413,714.41 [Q1]. None of them are credit notes [Q1].\n\nUnder the policy, payments may only be made to vendors with ACTIVE status. Invoices from ON_HOLD vendors must be escalated to Procurement Excellence before they are processed [§4.1].\n\nThe data doesn't show whether any of these invoices have been escalated or paid. You would need to check that with Procurement Excellence or in the payment records.",
+      "seconds": 4.1
+    },
+    {
+      "id": "E08",
+      "question": "What are the standard payment terms?",
+      "passed": true,
+      "failures": [],
+      "answer": "Standard payment terms are **60 days net** from invoice receipt [§5.2]. Early-payment discounts above 2% need Treasury approval [§5.2].",
+      "seconds": 2.6
+    },
+    {
+      "id": "E09",
+      "question": "How many rows were quarantined by the pipeline and why?",
+      "passed": true,
+      "failures": [],
+      "answer": "The pipeline quarantined 5 rows, and all 5 have the same reason, DUPLICATE_ROW [Q1]. Each one is identical to another row after cleaning. For example, one is identical to source_row 26 [Q1].\n\nI haven't listed the five rows individually. I can pull their source rows and invoice numbers if you want to check them.",
+      "seconds": 3.5
+    },
+    {
+      "id": "E10",
+      "question": "Which invoices were paid late in 2025, and who is the requester of the purchase for invoice approvals by j.smith?",
+      "passed": true,
+      "failures": [],
+      "answer": "I can't answer either part from the data I have.\n\n**Late payments:** The invoice data has no payment dates, so I can't tell which invoices were paid late. The policy sets standard terms of 60 days net from invoice receipt [§5.2]. The data also has no receipt date, only an invoice date. To identify late payments, get a payment-date extract from AP or the ERP payment run. Compare it against the 60-day terms, using the receipt date if you can get it.\n\n**Requester for j.smith approvals:** The data doesn't record purchase requesters, so I can't name them. It does show that j.smith approved 24 invoices totalling EUR 1,095,818.24 [Q1]. The requesters would have to come from the PO or requisition system. I can list those 24 invoices with their PO numbers, which you could use for that lookup.",
+      "seconds": 5.8
+    }
+  ]
+}
